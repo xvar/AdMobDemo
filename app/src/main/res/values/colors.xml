@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="accent">@color/colorAccent</color>
+
+    <color name="black">#000000</color>
+    <color name="black_7">#13000000</color>
+    <color name="black_24">#3E000000</color>
+    <color name="black_30">#4D000000</color>
+    <color name="black_40">#67000000</color>
+    <color name="gray_f9">#f9f9f9</color>
+    <color name="gray_f6">#f6f6f6</color>
+    <color name="gray_f2">#f2f2f2</color>
+    <color name="gray_eb">#ebebeb</color>
+    <color name="gray_ed">#ededed</color>
+    <color name="gray_ed_96">#f5ededed</color>
+    <color name="gray_ed_0">#00ededed</color>
+    <color name="gray_d3">#d3d3d3</color>
+    <color name="gray_c9">#c9c9c9</color>
+    <color name="gray_c9_50">#78c9c9c9</color>
+    <color name="gray_b0">#b0b0b0</color>
+    <color name="gray_85">#858585</color>
+    <color name="gray_70">#707070</color>
+    <color name="gray_33">#333333</color>
+    <color name="gray_20">#28000000</color>
+    <color name="black_10">#19000000</color>
+    <color name="blue">#4497ce</color>
+    <color name="blue_light">#F7F8FA</color>
+    <color name="red_primary">#f75059</color>
+    <color name="green">#6ca232</color>
+    <color name="purple">#B07EFE</color>
+    <color name="white">#ffffff</color>
+    <color name="white87">#deFFFFFF</color>
+    <color name="white96">#f5ffffff</color>
+    <color name="white_50">#78ffffff</color>
+    <color name="white_40">#66ffffff</color>
+    <color name="accent_50">#787092FE</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="medium_light_blue">#7092FE</color>
+    <color name="accent_60">#997092FE</color>
+    <color name="accent_25">#407092FE</color>
+    <color name="accent_7">#127092FE</color>
+
+    <!--region styles -->
+    <color name="icons">#8f8f8f</color>
+    <color name="grey_overlay">#66000000</color>
+    <color name="secondary_text">#666666</color>
+    <color name="black54">#8a000000</color> <!-- 54% opacity -->
+    <color name="switch_thumb_color">#fafafa</color>
+    <color name="switch_track_color">@color/black</color>
+    <color name="black87">#de000000</color>
+    <!--endregion -->
+
+    <!--region v19 styles -->
+    <color name="flat_background">#f9f9f9</color>
+    <!--endregion -->
+
+    <!-- region v21 styles -->
+    <color name="product_status_bar">#1c000000</color>
+    <!-- endregion -->
+
+    <!--region v23 styles -->
+    <color name="dark_primary">#0d000000</color>
+    <color name="default_primary">#fafafa</color>
+    <!--endregion -->
+
+    <color name="icons_dark">#778089</color>
+    <color name="primary_text">#2a2a2a</color>
+    <color name="accent_icon">@color/accent</color>
+    <color name="text_primary">@color/gray_33</color>
+    <color name="text_secondary">@color/gray_70</color>
+    <color name="text_inactive">@color/gray_b0</color>
+    <color name="hint_gray">@color/gray_85</color>
+    <color name="hint_color">@color/gray_70</color>
+    <color name="shadow">@color/gray_20</color>
+    <color name="separator">@color/gray_eb</color>
+    <color name="bright_sky_blue">#00b9ff</color>
+
+    <color name="background_main">@color/gray_ed</color>
+    <color name="background_main_96">@color/gray_ed_96</color>
+    <color name="background_main_0">@color/gray_ed_0</color>
+
+    <color name="placeholder">@color/gray_f6</color>
+
+    <color name="chat_list_green">#77C226</color>
+    <color name="layouts_background_color">#F7F7F7</color>
+    <color name="moderation_backround">#FFCD4B</color>
+    <color name="shimmer">@color/gray_eb</color>
+    <color name="main_buttons">@color/medium_light_blue</color>
+    <color name="container_background">@color/gray_f2</color>
+
+    <color name="lime">#77c226</color>
+    <color name="lime_24">#3d77c226</color>
+    <color name="lime_light">#eef8e4</color>
+
+</resources>
