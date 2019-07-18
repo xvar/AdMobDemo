@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="22dp"
+    android:layout_gravity="center">
+    <TextView
+        tools:text="Продано"
+        tools:background="@drawable/badge_green_bkg"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/textView"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="10sp"
+        tools:ignore="SmallSp"
+        />
+    <ImageView
+        tools:visibility="gone"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:id="@+id/badgeDeliveryImageView"
+        android:src="@drawable/ic_delivery"
+        android:layout_marginStart="4dp"
+        android:layout_gravity="center_vertical"
+        android:visibility="gone"/>
+</FrameLayout>
+

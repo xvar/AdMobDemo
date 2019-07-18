@@ -1,4 +1,4 @@
-package com.allgoritm.youla.models.list
+package allgoritm.com.youla.models.list
 
 const val META_EMPTY = -6_000
 

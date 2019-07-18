@@ -1,9 +1,9 @@
 package allgoritm.com.youla.adapters.delegates
 
 import android.view.View
-import com.allgoritm.youla.adapters.UIEvent
-import com.allgoritm.youla.models.AdapterItem
-import com.allgoritm.youla.models.Payload
+import allgoritm.com.youla.adapters.UIEvent
+import allgoritm.com.youla.models.AdapterItem
+import allgoritm.com.youla.models.Payload
 
 import org.reactivestreams.Processor
 

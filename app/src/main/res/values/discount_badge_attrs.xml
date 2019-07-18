@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="discount_badge_size">40dp</dimen>
+    <dimen name="discount_large_badge_size">48dp</dimen>
+    <dimen name="discount_small_badge_size">38dp</dimen>
+    <dimen name="discount_large_badge_text_size">13sp</dimen>
+    <dimen name="discount_small_badge_text_size">12sp</dimen>
+    <dimen name="discount_badge_text_size">12sp</dimen>
+    <dimen name="discount_badge_corner_radius">4dp</dimen>
+
+    <color name="discountBadgeStartColor">@color/accent</color>
+    <color name="discountBadgeEndColor">@color/bright_sky_blue</color>
+    <color name="discountBadgeTextColor">@color/white</color>
+    <color name="discountBadgeShadowColor">@color/shadow</color>
+    <color name="discountBadgeBackgroundColor">@color/accent</color>
+
+    <string name="discountDefaultText">-50%</string>
+
+    <declare-styleable name="DiscountBadgeView">
+        <attr name="android:text" />
+        <attr name="badgeTextSize" format="dimension" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="badgeSide" format="dimension" />
+
+        <attr name="badgeStartColor" format="color" />
+        <attr name="badgeEndColor" format="color" />
+        <attr name="badgeTextColor" format="color" />
+        <attr name="badgeShadowColor" format="color" />
+        <attr name="badgeBackgroundColor" format="color" />
+
+        <attr name="badgePosition" format="enum">
+            <enum name="topLeft" value="0"/>
+            <enum name="topRight" value="1"/>
+            <enum name="bottomLeft" value="2"/>
+            <enum name="bottomRight" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <style name="DiscountBadgeView_Default">
+        <item name="badgeTextSize">@dimen/discount_badge_text_size</item>
+        <item name="android:text">@string/discountDefaultText</item>
+        <item name="cornerRadius">@dimen/discount_badge_corner_radius</item>
+        <item name="badgeSide">@dimen/discount_badge_size</item>
+        <item name="badgeStartColor">@color/discountBadgeStartColor</item>
+        <item name="badgeEndColor">@color/discountBadgeEndColor</item>
+        <item name="badgePosition">topRight</item>
+        <item name="badgeTextColor">@color/discountBadgeTextColor</item>
+        <item name="badgeShadowColor">@color/discountBadgeShadowColor</item>
+        <item name="badgeBackgroundColor">@color/discountBadgeBackgroundColor</item>
+    </style>
+</resources>

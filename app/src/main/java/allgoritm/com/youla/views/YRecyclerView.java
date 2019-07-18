@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.allgoritm.youla.adapters.EmptyDummyItem;
-import com.allgoritm.youla.adapters.viewholders.EmptyDummyVh;
+import allgoritm.com.youla.adapters.EmptyDummyItem;
+import allgoritm.com.youla.adapters.viewholders.EmptyDummyVh;
 
 /**
  * Created by next on 29.01.2018.

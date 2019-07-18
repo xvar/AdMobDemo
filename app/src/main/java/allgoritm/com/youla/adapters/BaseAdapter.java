@@ -1,7 +1,7 @@
 package allgoritm.com.youla.adapters;
 
-import com.allgoritm.youla.adapters.UIEvent;
-import com.allgoritm.youla.models.AdapterItem;
+import allgoritm.com.youla.adapters.UIEvent;
+import allgoritm.com.youla.models.AdapterItem;
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter;
 
 import java.util.List;

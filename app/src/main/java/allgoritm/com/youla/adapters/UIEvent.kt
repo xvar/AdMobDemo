@@ -1,4 +1,4 @@
-package com.allgoritm.youla.adapters
+package allgoritm.com.youla.adapters
 
 const val MAIN_TAB_EVENT_ID = -10_16
 const val SEARCH_TAB_EVENT_ID = -10_17

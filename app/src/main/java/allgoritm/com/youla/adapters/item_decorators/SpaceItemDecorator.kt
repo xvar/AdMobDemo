@@ -1,4 +1,4 @@
-package com.allgoritm.youla.adapters.item_decorators
+package allgoritm.com.youla.adapters.item_decorators
 
 import android.graphics.Rect
 import android.view.View

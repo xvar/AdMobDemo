@@ -1,3 +1,3 @@
-package com.allgoritm.youla.models
+package allgoritm.com.youla.models
 
 interface YRouteEvent

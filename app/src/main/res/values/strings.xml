@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Youla_AdMob_Demo</string>
     <string name="ad_mob_ads_app_id">ca-app-pub-6777706645301927~3513571193</string>
+
+    <string name="no_connection">Отсутствует подключение</string>
+    <string name="no_connection_description">Проверьте ваше интернет-соединение и попробуйте снова</string>\
+    <string name="try_again">Попробовать еще раз</string>
+
+    <string name="other_error_dummy_title">Извините, сервис временно недоступен</string>
+    <string name="other_error_description">Разработчики занимаются устранением проблемы. Попробуйте зайти позже.</string>
+    <string name="nothing_was_found">Ничего не найдено</string>
+    <string name="empty_search_description">Мы не нашли то, что вы искали. Измените условия поиска, выбранные фильтры или категорию.</string>
+    <string name="advert">Реклама</string>
 </resources>

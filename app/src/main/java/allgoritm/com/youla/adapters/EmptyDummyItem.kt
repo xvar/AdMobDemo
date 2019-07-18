@@ -1,8 +1,8 @@
-package com.allgoritm.youla.adapters
+package allgoritm.com.youla.adapters
 
-import com.allgoritm.youla.models.AdapterItem
-import com.allgoritm.youla.models.EMPTY_ITEM_ID
-import com.allgoritm.youla.models.list.AdapterItemMeta
+import allgoritm.com.youla.models.AdapterItem
+import allgoritm.com.youla.models.EMPTY_ITEM_ID
+import allgoritm.com.youla.models.list.AdapterItemMeta
 
 data class EmptyDummyItem(
         val imageRes: Int,

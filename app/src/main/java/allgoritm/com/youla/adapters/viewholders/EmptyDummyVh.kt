@@ -1,4 +1,4 @@
-package com.allgoritm.youla.adapters.viewholders
+package allgoritm.com.youla.adapters.viewholders
 
 import allgoritm.com.youla.admob.demo.R
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.allgoritm.youla.adapters.EmptyDummyItem
+import allgoritm.com.youla.adapters.EmptyDummyItem
 
 
 class EmptyDummyVh(view: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
