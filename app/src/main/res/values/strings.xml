@@ -11,4 +11,6 @@
     <string name="nothing_was_found">Ничего не найдено</string>
     <string name="empty_search_description">Мы не нашли то, что вы искали. Измените условия поиска, выбранные фильтры или категорию.</string>
     <string name="advert">Реклама</string>
+    <string name="fav_inactive">Добавить в Избранное</string>
+    <string name="fav_active">Удалить из Избранного</string>
 </resources>

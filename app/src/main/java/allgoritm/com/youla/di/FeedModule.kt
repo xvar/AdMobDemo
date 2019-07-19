@@ -1,18 +1,26 @@
 package allgoritm.com.youla.di
 
+import allgoritm.com.youla.feed.contract.FeedComposeStrategy
 import allgoritm.com.youla.feed.contract.FeedListProxy
+import allgoritm.com.youla.feed.impl.FeedComposeStrategyImpl
 import allgoritm.com.youla.feed.impl.FeedListProxyImpl
 import allgoritm.com.youla.loader.ImageLoader
+import allgoritm.com.youla.nativead.NativeAdLoaderFactory
+import allgoritm.com.youla.nativead.NativeAdManager
+import allgoritm.com.youla.utils.ResourceProvider
 import android.app.Application
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
+import io.reactivex.subjects.PublishSubject
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-//all dependencies here for simplicity
+//one module with all dependencies being singleton here for simplicity
 
 private const val DEFAULT_CONNECT_TIMEOUT_IN_SECONDS = 5L
 private const val DEFAULT_READ_TIMEOUT_IN_SECONDS = 10L
@@ -21,10 +29,34 @@ private const val DEFAULT_WRITE_TIMEOUT_IN_SECONDS = DEFAULT_READ_TIMEOUT_IN_SEC
 @Module
 class FeedModule {
 
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(app: Application): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(app.applicationContext)
+    }
+
+    @Singleton
+    @Provides
+    fun provideNativeAdManager(sp: SharedPreferences, application: Application) : NativeAdManager {
+        return NativeAdManager(sp, NativeAdLoaderFactory(application.applicationContext, sp, PublishSubject.create()))
+    }
+
+    @Singleton
+    @Provides
+    fun provideResourceProvider(application: Application) : ResourceProvider {
+        return ResourceProvider(application.applicationContext)
+    }
+
     //demo purpose only
     @Provides
     @Singleton
     fun provideFeedListProxyMain() : FeedListProxy = FeedListProxyImpl()
+
+    @Provides
+    @Singleton
+    fun provideStrategy(nativeAdManager: NativeAdManager, feedListProxy: FeedListProxy) : FeedComposeStrategy {
+        return FeedComposeStrategyImpl(nativeAdManager, feedListProxy)
+    }
 
     @Provides
     @Singleton

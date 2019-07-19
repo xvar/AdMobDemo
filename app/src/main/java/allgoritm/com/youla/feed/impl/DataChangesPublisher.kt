@@ -2,6 +2,7 @@ package allgoritm.com.youla.feed.impl
 
 import allgoritm.com.youla.adapters.EmptyDummyItem
 import allgoritm.com.youla.admob.demo.R
+import allgoritm.com.youla.di.ScopeContainer
 import allgoritm.com.youla.feed.contract.*
 import allgoritm.com.youla.feed.model.FeedModel
 import allgoritm.com.youla.feed.model.FeedState
@@ -15,16 +16,20 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DataChangesPublisher(
+@Singleton
+class DataChangesPublisher @Inject constructor(
         private val rp: ResourceProvider,
-        private val pageNumber: AtomicInteger,
-        private val feedComposeStrategy: FeedComposeStrategy,
-        private val observerList: List<Flowable<out DataChange>>,
-        private val feedListProxy: FeedListProxy,
-        private val composeStr: AllowComposeFeedStrategy,
+        private val sc: ScopeContainer,
         private val itemFactory: YAdapterItemFactory
 ) {
+
+    private val pageNumber = sc.page
+    private val feedComposeStrategy = sc.feedComposeStrategy
+    private val observerList: List<Flowable<out DataChange>> = sc.observerList
+    private val feedListProxy: FeedListProxy = sc.feedListProxy
 
     @Suppress("UNCHECKED_CAST")
     private val dataChanges = Flowable.merge(observerList)
@@ -43,7 +48,7 @@ class DataChangesPublisher(
     private fun combineChanges(it: DataChange): FeedState {
         val model = FeedModel(pageNumber.get())
 
-        if (it is DataChange.Products && !it.products.isEmpty() && composeStr.allowCompose()) {
+        if (it is DataChange.Products && !it.products.isEmpty()) {
             model.products = it.products
             val lastLoadingChange = lastLoadingChange.get()
             return if (lastLoadingChange != null &&

@@ -55,12 +55,6 @@ class HomeTabProductFeedFragment: MauntableFragment(), FeedListProxy, Injectable
 
     override fun attach(proxy: FeedListProxy) {}
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
-
-    }
-
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

@@ -11,9 +11,10 @@ import kotlin.concurrent.write
 /**
  * Created by next on 10.07.2018.
  */
-class NativeAdLoaderFactory(private val context: Context,
-                            private val sp: SharedPreferences,
-                            val events: PublishSubject<NativeAdEvent>
+class NativeAdLoaderFactory(
+    private val context: Context,
+    private val sp: SharedPreferences,
+    val events: PublishSubject<NativeAdEvent>
 ) {
 
     private val loaders: EnumMap<NativeAdType, INativeAdLoader?> = EnumMap(NativeAdType::class.java)

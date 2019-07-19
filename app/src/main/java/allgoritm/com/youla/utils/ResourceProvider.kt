@@ -1,8 +1,10 @@
 package allgoritm.com.youla.utils
 
 import android.content.Context
+import android.graphics.Point
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.view.WindowManager
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
@@ -20,6 +22,14 @@ class ResourceProvider(private val context: Context) {
 
     fun getQuantityString(@PluralsRes id: Int, quantity: Int): String {
         return context.resources.getQuantityString(id, quantity)
+    }
+
+    val displaySize : Int by lazy {
+        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = wm.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        size.x
     }
 
     fun getDrawable(@DrawableRes id: Int): Drawable? = ResourcesCompat.getDrawable(context.resources, id, context.theme)
