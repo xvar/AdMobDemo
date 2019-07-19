@@ -5,35 +5,37 @@ import allgoritm.com.youla.feed.model.FeedState
 import allgoritm.com.youla.pagination.PaginationViewModel
 import androidx.lifecycle.ViewModel
 import io.reactivex.Flowable
+import io.reactivex.processors.BehaviorProcessor
+import javax.inject.Inject
 
-class HomeVM: ViewModel(), PaginationViewModel {
-    
+class HomeVM @Inject constructor(): ViewModel(), PaginationViewModel {
+
+    private val uiState = BehaviorProcessor.create<FeedState>()
+
     override fun loadFirst() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun loadNext() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun reload() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun getPageSize(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return 10
     }
 
     fun handleEvent(event: UIEvent) {
         
     }
 
-    fun getUiState(): Flowable<FeedState> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    fun getUiState(): Flowable<FeedState> = uiState
 
     fun subscribeToFeed() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 }

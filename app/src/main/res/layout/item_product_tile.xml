@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="H,6:5" />
 
-    <com.allgoritm.youla.views.discount.DiscountBadgeView
+    <allgoritm.com.youla.views.discount.DiscountBadgeView
         tools:visibility="visible"
         android:id="@+id/discount_badge"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         app:badgePosition="topLeft"
         app:badgeSide="@dimen/discount_large_badge_size"
         app:badgeTextSize="14sp"
-        app:cornerRadius="@dimen/badge_corner_radius"
+        app:cornerRadius="7dp"
         android:visibility="gone" />
 
     <ImageView
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="@+id/product_iv"
         android:visibility="gone"
         />
-    <com.allgoritm.youla.views.YBadgeView
+    <allgoritm.com.youla.views.YBadgeView
         android:id="@+id/badge_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

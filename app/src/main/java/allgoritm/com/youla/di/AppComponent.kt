@@ -12,7 +12,9 @@ import javax.inject.Singleton
 @Component(
         modules = [
             AndroidInjectionModule::class,
-            AndroidSupportInjectionModule::class
+            AndroidSupportInjectionModule::class,
+            ActivityBuildersModule::class,
+            FeedModule::class
         ]
 )
 interface AppComponent {
