@@ -117,7 +117,7 @@ public class NativeAdManager{
 
     private void ensureSession(@NonNull String sessionKey) {
         synchronized (this) {
-            int advertCacheSize = 4; //todo make cache size changeable
+            int advertCacheSize = 6; //todo -> from settings
             AdvertSession cachedSession = sessionMap.get(sessionKey);
             if (cachedSession == null || cachedSession.getMaxCacheSize() != advertCacheSize) {
                 sessionMap.put(sessionKey, new WindowLruAdvertSession(loadSubject, advertCacheSize));
@@ -144,7 +144,15 @@ public class NativeAdManager{
         currentSession.reset();
     }
 
+    private void clearSessions() {
+        synchronized (this) {
+            currentSessionKey.set(null);
+            sessionMap.clear();
+        }
+    }
+
     public void restart() {
+        clearSessions();
         loaderFactory.init();
     }
 

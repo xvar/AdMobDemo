@@ -13,4 +13,12 @@
     <string name="advert">Реклама</string>
     <string name="fav_inactive">Добавить в Избранное</string>
     <string name="fav_active">Удалить из Избранного</string>
+
+    <string name="pref_key_use_lru_rotation_session" translatable="false">use_lru_and_rotation</string>
+    <string name="pref_key_stride" translatable="false">stride</string>
+    <string name="pref_key_use_advert" translatable="false">use_advert</string>
+
+    <string name="pref_title_use_rotation">Use lru session with rotation</string>
+    <string name="pref_title_use_advert">Show ad mob advert</string>
+    <string name="pref_title_stride">Number of products between advert items</string>
 </resources>

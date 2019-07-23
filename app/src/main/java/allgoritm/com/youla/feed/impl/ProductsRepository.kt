@@ -5,12 +5,9 @@ import allgoritm.com.youla.feed.contract.DataChange
 import allgoritm.com.youla.feed.contract.SettingsProvider
 import allgoritm.com.youla.models.YAdapterItem
 import io.reactivex.Completable
-import java.lang.Exception
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class ProductsRepository @Inject constructor(
     private val productGenerator: ProductGenerator,
     private val settingsProvider: SettingsProvider,
@@ -21,6 +18,9 @@ class ProductsRepository @Inject constructor(
 
     fun load(page: Int) : Completable {
         return Completable.fromAction {
+            if (page == 0) {
+                clear().blockingGet()
+            }
             val list = map[page] ?: productGenerator.generateProductList(settingsProvider.getFeedPageSize())
             map[page] = list
             //emulate some backend work

@@ -16,7 +16,7 @@ class ScopeContainer @Inject constructor(
     val feedListProxy : FeedListProxy
 ) {
     val refreshChanges: PublishProcessor<DataChange.Refresh> = PublishProcessor.create()
-    val loadingChanges : PublishProcessor<DataChange.Refresh> = PublishProcessor.create()
+    val loadingChanges : PublishProcessor<DataChange.Loading> = PublishProcessor.create()
     val productChanges : PublishProcessor<DataChange.Products> = PublishProcessor.create()
     val page : AtomicInteger = AtomicInteger(0)
     val observerList = listOf(refreshChanges, loadingChanges, productChanges)

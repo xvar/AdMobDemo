@@ -11,6 +11,7 @@ import allgoritm.com.youla.models.AdapterItem
 import allgoritm.com.youla.models.YAdapterItem
 import allgoritm.com.youla.models.YAdapterItemFactory
 import allgoritm.com.youla.utils.ResourceProvider
+import allgoritm.com.youla.utils.rx.timeBoundedBuffer
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
@@ -19,7 +20,6 @@ import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class DataChangesPublisher @Inject constructor(
         private val rp: ResourceProvider,
         private val sc: ScopeContainer,
@@ -33,13 +33,36 @@ class DataChangesPublisher @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     private val dataChanges = Flowable.merge(observerList)
-            .doOnNext { if (it is DataChange.Loading) lastLoadingChange.set(it) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
-                .debounce(100, TimeUnit.MILLISECONDS)
-                .map { it -> combineChanges(it) }
-                .filter{ it is FeedResult<*> }
-                .map { it as FeedResult<AdapterItem> }
+        .doOnNext { if (it is DataChange.Loading) lastLoadingChange.set(it) }
+        .subscribeOn(Schedulers.io())
+        .observeOn(Schedulers.computation())
+        .timeBoundedBuffer(100)
+        .map { filterChanges(it) }
+        .flatMap { Flowable.fromIterable(it) }
+        .map { combineChanges(it) }
+        .filter{ it is FeedResult<*> }
+        .map { it as FeedResult<AdapterItem> }
+
+    private fun filterChanges(list: List<DataChange>): LinkedHashSet<DataChange> {
+        val productIndex = list.indexOfLast { it is DataChange.Products }
+        val refresh = list.findLast { it is DataChange.Refresh }
+
+        val set = LinkedHashSet<DataChange>()
+        when {
+            productIndex != -1 -> {
+                set.addAll(list.filterIndexed { index, change ->
+                    (change !is DataChange.Refresh) ||
+                            (change is DataChange.Products && index == productIndex)
+                })
+            }
+            refresh != null -> {
+                set.addAll(list.filter { it !is DataChange.Refresh })
+                set.add(refresh)
+            }
+            else -> set.addAll(list)
+        }
+        return set
+    }
 
     fun getFeedChanges() : Flowable<FeedResult<AdapterItem>> = dataChanges
 

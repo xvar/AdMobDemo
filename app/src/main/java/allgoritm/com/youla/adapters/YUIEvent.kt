@@ -66,6 +66,7 @@ const val DO_NOTHING = -10_401
 const val UNKNOWN_MENU_ITEM = -10_404
 const val SHOW_USER = -10_405
 const val SUBSCRIPTION_SHOW_PROFILE = -10_406
+const val SETTINGS_CLICK = -10_43
 
 const val TOP_SCROLL = -10_111
 
@@ -112,24 +113,13 @@ sealed class YUIEvent(override val id: Int) : UIEvent {
     class BaseParam(id: Int, val param: String): YUIEvent(id)
 
     sealed class Click(id: Int) : YUIEvent(id) {
-        //cut out
+        class Settings : Click(SETTINGS_CLICK)
     }
 
     class NativeAdvertEvent (val nativeAd: INativeAd?, val action: Int, val productId: String? = null) : YUIEvent(
         NATIVE_ADVERT_EVENT
     )
     class RecycleNativeAdvert(val nativeAd: INativeAd) : YUIEvent(NATIVE_ADVERT_RECYCLED)
-    /*class Loading(val isLoading: Boolean): YUIEvent(LOADING) {
-
-        fun show(a: YActivity){
-           if(isLoading){
-               a.showFullScreenLoading()
-           } else {
-               a.hideFullScreenLoading()
-           }
-        }
-
-    }*/
 
     //cut out
 

@@ -1,0 +1,22 @@
+<PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+            app:key="@string/pref_key_use_advert"
+            app:title="@string/pref_title_use_advert"
+            android:defaultValue="true"
+    />
+
+    <SwitchPreference
+            app:key="@string/pref_key_use_lru_rotation_session"
+            app:title="@string/pref_title_use_rotation"
+            android:defaultValue="false"
+    />
+
+    <EditTextPreference
+            android:key="@string/pref_key_stride"
+            android:title="@string/pref_title_stride"
+            android:defaultValue="9"
+        />
+
+</PreferenceScreen>

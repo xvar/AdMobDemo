@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,6 +11,10 @@
     <declare-styleable name="YRecyclerView">
         <attr name="rv_padding_top" format="dimension" />
         <attr name="rv_padding_bottom" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundedCornersMaskView">
+        <attr name="cornersColor" format="color|reference" />
     </declare-styleable>
 
 </resources>

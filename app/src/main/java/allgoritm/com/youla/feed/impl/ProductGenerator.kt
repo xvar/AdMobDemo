@@ -19,25 +19,25 @@ class ProductGenerator @Inject constructor(
     private val localIdGenerator = AtomicInteger(0)
 
     private val productImages = listOf(
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5c/d0/5cd04e7c0eae8d10f55c78eb.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5c/bf/5cbf6bb398200e60a47a026a.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5c/d0/5cd043800eae8d19da02ae32.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5c/d0/5cd043990eae8d19db5ee1f2.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5c/d0/5cd043990eae8d19db5ee1f2.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/1080_480/5d/1f/5d1f69790eae8d21a8698fd9.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/1080_480/5c/75/5c75168e0eae8d3daa1cc482.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/2f/5d2f16340eae8d2f4e663c84.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/13/5d135e580eae8d49532b12db.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/2f/5d2f15b50eae8d2fb77f592a.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/13/5d1391d50eae8d4664650e42.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/0a/5d0a082e98200e36966a62e6.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/0a/5d0a03a198200e214e2ad9d2.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/1080_480/5d/1f/5d1f69790eae8d21a8698fd9.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/1080_480/5c/75/5c75168e0eae8d3daa1cc482.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/31/5d31c7950eae8d07d9446465.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/28/5d286fc30eae8d74bb58dd22.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/28/5d286c7398200e51b73c016a.jpg",
-        "https://img.youla.portal-omproxy.devmail.ru/files/images/540_540/5d/28/5d286f4d0eae8d74c376e486.jpg"
+        "https://http.cat/206.jpg",
+        "https://http.cat/302.jpg",
+        "https://http.cat/204.jpg",
+        "https://http.cat/400.jpg",
+        "https://http.cat/404.jpg",
+        "https://http.cat/411.jpg",
+        "https://http.cat/415.jpg",
+        "https://http.cat/425.jpg",
+        "https://http.cat/503.jpg",
+        "https://http.cat/506.jpg",
+        "https://http.cat/510.jpg",
+        "https://http.cat/599.jpg",
+        "https://http.cat/511.jpg",
+        "https://http.cat/410.jpg",
+        "https://http.cat/406.jpg",
+        "https://http.cat/401.jpg",
+        "https://http.cat/206.jpg",
+        "https://http.cat/202.jpg",
+        "https://http.cat/100.jpg"
     )
     //don't care about correct incrementing, random picture is ok
     private var imagesIndex = 0

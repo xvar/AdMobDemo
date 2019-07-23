@@ -17,7 +17,8 @@ import kotlin.collections.ArrayList
 
 class FeedComposeStrategyImpl(
         private val nativeAdManager: NativeAdManager,
-        private val feedListProxy: FeedListProxy
+        private val feedListProxy: FeedListProxy,
+        private val settingsProvider: SettingsProvider
 ) : FeedComposeStrategy {
     override fun from(previous: FeedResult<AdapterItem>): FeedResult<AdapterItem> {
         return previous
@@ -53,6 +54,7 @@ class FeedComposeStrategyImpl(
         advertSession.start()
 
         val result = mutableListOf<AdapterItem>()
+
         //cut out -- fixed for demo
         val stride = 9
         val maxAdvertCount = 600
@@ -100,28 +102,6 @@ class FeedComposeStrategyImpl(
     private fun canAddAdvert(advertCount : Int, maxAdvertCount : Int, stride: Int) : Boolean {
         //cut out, using stub for demo
         return true
-    }
-
-    /**
-     * Splits list in two - first part is being returned,
-     * remaining list stays in origin
-     *
-     * @param origin original list of items
-     * @param length - first list's length
-     *
-     * Origin gets mutated: sublist of pageSize items is being removed from origin and returned
-     */
-    @VisibleForTesting
-    fun <T> splitList(origin: MutableList<T>, length : Int) : MutableList<T> {
-        if (origin.size < length) {
-            val res = ArrayList(origin)
-            origin.clear()
-            return res
-        }
-        val sublist = origin.subList(0, length)
-        val res = ArrayList(sublist)
-        sublist.clear()
-        return res
     }
 
     /**

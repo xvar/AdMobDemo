@@ -2,6 +2,7 @@ package allgoritm.com.youla.di
 
 import allgoritm.com.youla.feed.contract.FeedComposeStrategy
 import allgoritm.com.youla.feed.contract.FeedListProxy
+import allgoritm.com.youla.feed.contract.SettingsProvider
 import allgoritm.com.youla.feed.impl.FeedComposeStrategyImpl
 import allgoritm.com.youla.feed.impl.FeedListProxyImpl
 import allgoritm.com.youla.loader.ImageLoader
@@ -54,8 +55,12 @@ class FeedModule {
 
     @Provides
     @Singleton
-    fun provideStrategy(nativeAdManager: NativeAdManager, feedListProxy: FeedListProxy) : FeedComposeStrategy {
-        return FeedComposeStrategyImpl(nativeAdManager, feedListProxy)
+    fun provideStrategy(
+        nativeAdManager: NativeAdManager,
+        feedListProxy: FeedListProxy,
+        settingsProvider: SettingsProvider
+    ) : FeedComposeStrategy {
+        return FeedComposeStrategyImpl(nativeAdManager, feedListProxy, settingsProvider)
     }
 
     @Provides
