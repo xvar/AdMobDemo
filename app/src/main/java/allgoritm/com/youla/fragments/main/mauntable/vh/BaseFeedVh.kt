@@ -46,7 +46,7 @@ abstract class BaseFeedVh(
     private lateinit var feedPaginationScrollListener : FeedPaginationScrollListener
 
     private val pageThreshold = settingsProvider.getFeedPageThreshold()
-    private val pageSize = settingsProvider.getFeedPageSize()
+    private val updateAdvertThreshold = settingsProvider.getFeedPageSize()
 
 
     init {
@@ -110,7 +110,7 @@ abstract class BaseFeedVh(
         feedPaginationScrollListener = FeedPaginationScrollListener(viewModel, layoutManager, pageThreshold)
         rv.recyclerView.addOnScrollListener(feedPaginationScrollListener)
         rv.recyclerView.addOnScrollListener(
-                FeedAdvertScrollListener(Consumer { t -> viewModel.handleEvent(t) }, layoutManager, pageSize)
+                FeedAdvertScrollListener(Consumer { t -> viewModel.handleEvent(t) }, layoutManager, updateAdvertThreshold)
         )
         rv.requestLayout()
     }

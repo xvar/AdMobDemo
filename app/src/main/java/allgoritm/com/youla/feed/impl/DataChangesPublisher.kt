@@ -23,6 +23,7 @@ import javax.inject.Singleton
 class DataChangesPublisher @Inject constructor(
         private val rp: ResourceProvider,
         private val sc: ScopeContainer,
+        private val productsRepository: ProductsRepository,
         private val itemFactory: YAdapterItemFactory
 ) {
 
@@ -134,7 +135,7 @@ class DataChangesPublisher @Inject constructor(
     }
 
     private fun refresh() {
-        //contentResolver.notifyChange(PRODUCTS_URI, null)
+        productsRepository.refresh().subscribe()
     }
 
     private fun DataChange.Loading.Error.isValid(modelPageNumber: Int): Boolean {

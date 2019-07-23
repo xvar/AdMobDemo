@@ -20,7 +20,7 @@ fun AdapterItem.isWideItem() : Boolean {
 fun AdapterItem.isPromotedProduct() : Boolean {
     return when {
         this is YAdapterItem.NativeAdvertItem ||
-                this is YAdapterItem.AdMobNativeAdvertItem -> true
+        this is YAdapterItem.AdMobNativeAdvertItem -> true
         else -> false
     }
 }

@@ -28,7 +28,7 @@ class CasaActivity : BaseActivity() {
         addDisposable("route", homeVM.routeEvents
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                //examples sake -> router handles event in production
+                //examples sake -> the router handles event in production
                 switchFragment(it)
             }
         )
@@ -37,9 +37,13 @@ class CasaActivity : BaseActivity() {
             homeVM.handleEvent(YUIEvent.Click.Settings())
         }
 
-        //example's sake - set initial fragment
+        //example's sake -> router and correct subscription update
         if (savedInstanceState == null) {
             homeVM.routeEvents.onNext(RouteEvent.Home())
+
+            supportFragmentManager.addOnBackStackChangedListener {
+                homeVM.subscribeToFeed()
+            }
         }
     }
 

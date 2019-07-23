@@ -18,12 +18,10 @@ import allgoritm.com.youla.models.YAdapterItem
 import allgoritm.com.youla.nativead.ListPositionData
 import allgoritm.com.youla.utils.ktx.Either
 import allgoritm.com.youla.utils.ktx.create
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -40,6 +38,7 @@ class HomeTabProductFeedFragment: MauntableFragment(), FeedListProxy, Injectable
 
     private val feedDataSubscriptionKey = "pr_feed_data_sub"
     private val uiStateSubscriptionKey = "pr_ui_data_sub"
+    private val uiEventsSubscriptionKey = "clicks_event_data_sub"
 
     private lateinit var feedVh : BaseFeedVh
     private lateinit var homeVM: HomeVM
@@ -55,6 +54,8 @@ class HomeTabProductFeedFragment: MauntableFragment(), FeedListProxy, Injectable
 
     override fun attach(proxy: FeedListProxy) {}
 
+    lateinit var adapter : MainAdapter
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -62,7 +63,7 @@ class HomeTabProductFeedFragment: MauntableFragment(), FeedListProxy, Injectable
 
         homeVM = hVmFactory.create().of(a)
 
-        val adapter = MainAdapter(a, imageLoader)
+        adapter = MainAdapter(a, imageLoader)
         adapter.setHasStableIds(true)
         feedVh = HomeFeedVh(adapter, homeVM, settingsProvider)
         putOnActivityCreatedAction {
@@ -114,6 +115,11 @@ class HomeTabProductFeedFragment: MauntableFragment(), FeedListProxy, Injectable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(feedVh))
 
+
+        addDisposable(uiEventsSubscriptionKey,
+            adapter.events
+                .subscribe { homeVM.handleEvent(it) }
+        )
     }
 
     private fun calculateListDiff(it: FeedState.FeedResult<YAdapterItem>): FeedStateDiff {

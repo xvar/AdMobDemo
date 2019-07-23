@@ -38,8 +38,15 @@ class FeedModule {
 
     @Singleton
     @Provides
-    fun provideNativeAdManager(sp: SharedPreferences, application: Application) : NativeAdManager {
-        return NativeAdManager(sp, NativeAdLoaderFactory(application.applicationContext, sp, PublishSubject.create()))
+    fun provideNativeAdManager(
+        sp: SharedPreferences,
+        settingsProvider: SettingsProvider,
+        application: Application
+    ) : NativeAdManager {
+        return NativeAdManager(sp,
+            settingsProvider,
+            NativeAdLoaderFactory(application.applicationContext, sp, PublishSubject.create())
+        )
     }
 
     @Singleton

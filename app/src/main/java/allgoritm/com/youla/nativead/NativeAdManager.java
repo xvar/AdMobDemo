@@ -1,11 +1,11 @@
 package allgoritm.com.youla.nativead;
 
+import allgoritm.com.youla.feed.contract.SettingsProvider;
 import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -24,17 +24,20 @@ public class NativeAdManager{
     private final AtomicReference<String> currentSessionKey;
     private final AtomicReference<AdvertSession> currentSession;
 
-    private final ConcurrentHashMap<String, AdvertSession> sessionMap = new ConcurrentHashMap<>();
+    private final SettingsProvider settingsProvider;
 
     private NativeAdLoaderFactory loaderFactory;
     private SharedPreferences sp;
     private NativeAdEvent loadMoreEvent = new NativeAdEvent.LoadMore();
     private final PublishSubject<Integer> loadSubject;
+    public final int MIN_LOAD_COUNT;
 
     public NativeAdManager(
             SharedPreferences sp,
+            SettingsProvider settingsProvider,
             NativeAdLoaderFactory loaderFactory
     ) {
+        this.settingsProvider = settingsProvider;
         loadsCounter = new AtomicInteger();
         eventProxySubject = PublishSubject.create();
         loadSubject = PublishSubject.create();
@@ -44,6 +47,7 @@ public class NativeAdManager{
         this.currentSessionKey = new AtomicReference<>();
         this.currentSession = new AtomicReference<>();
         Disposable events = this.loaderFactory.getEvents().subscribe(this::handleEvent);
+        this.MIN_LOAD_COUNT = settingsProvider.getFeedPageSize() / settingsProvider.getStride() + 1;
     }
 
     private void handleEvent(NativeAdEvent event) {
@@ -66,7 +70,7 @@ public class NativeAdManager{
             case NativeAdEventKt.SWITCH_LOADER_ID:
                 NativeAdEvent.SwitchLoader switchLoaderEvent = (NativeAdEvent.SwitchLoader)event;
                 loaderFactory.switchLoader(switchLoaderEvent.getKey(), switchLoaderEvent.getFallbackKey());
-                loadMore(AdvertSessionKt.ADS_MIN_CNT);
+                loadMore(MIN_LOAD_COUNT);
                 break;
             case NativeAdEventKt.AD_CLICK_ID:
                 NativeAdEvent.AdClick adClickEvent = (NativeAdEvent.AdClick)event;
@@ -91,7 +95,7 @@ public class NativeAdManager{
             return;
         int cachedItemsCount = advertSession.getCachedItemsCount();
         int loadCount = loadsCounter.get();
-        if (cachedItemsCount < cnt && (loadCount < cnt + AdvertSessionKt.ADS_MIN_CNT)) {
+        if (cachedItemsCount < cnt && (loadCount < cnt + MIN_LOAD_COUNT)) {
             for (int i = 0; i < cnt; i++) {
                 INativeAdLoader loader = loaderFactory.getLoader();
                 if (loader != null && loader.getCanLoad()) {
@@ -106,52 +110,41 @@ public class NativeAdManager{
         return eventProxySubject;
     }
 
-    public void switchSession(@NonNull String sessionKey) {
-        ensureSession(sessionKey);
-        synchronized (this) {
-            AdvertSession advertSession = sessionMap.get(sessionKey);
-            currentSessionKey.set(sessionKey);
-            currentSession.set(advertSession);
-        }
-    }
+    public void switchSession(@NonNull String sessionKey) {}
 
     private void ensureSession(@NonNull String sessionKey) {
-        synchronized (this) {
-            int advertCacheSize = 6; //todo -> from settings
-            AdvertSession cachedSession = sessionMap.get(sessionKey);
-            if (cachedSession == null || cachedSession.getMaxCacheSize() != advertCacheSize) {
-                sessionMap.put(sessionKey, new WindowLruAdvertSession(loadSubject, advertCacheSize));
+        //production uses map, for demo use ref
+        AdvertSession advertSession = currentSession.get();
+        if (advertSession == null) {
+            int loadSize = settingsProvider.getFeedPageSize() / settingsProvider.getStride() + 1;
+            int advertCacheSize = settingsProvider.getLruCacheSize();
+            AdvertSession newSession;
+            if (settingsProvider.isLruSession()) {
+                newSession = new WindowLruAdvertSession(loadSubject, advertCacheSize, loadSize);
             } else {
-                sessionMap.putIfAbsent(sessionKey, new WindowLruAdvertSession(loadSubject, advertCacheSize));
+                newSession = new MapAdvertSession(loadSubject, settingsProvider.getMaxAdvertCount(), loadSize);
             }
+            currentSession.set(newSession);
         }
     }
 
     @SuppressWarnings("ConstantConditions")
     @NonNull
     public AdvertSession getSession(@NonNull String sessionKey) {
-        ensureSession(sessionKey);
-        return sessionMap.get(sessionKey);
-    }
-
-    public String getCurrentSessionKey() {
-        return currentSessionKey.get();
-    }
-
-    public void clear(@NonNull String sessionKey) {
-        AdvertSession currentSession = getSession(sessionKey);
-        loadsCounter.set(0);
-        currentSession.reset();
+        //map used in production, we use reference for simplicity
+        ensureSession("");
+        return currentSession.get();
     }
 
     private void clearSessions() {
         synchronized (this) {
             currentSessionKey.set(null);
-            sessionMap.clear();
+            currentSession.set(null);
         }
     }
 
     public void restart() {
+        loadsCounter.set(0);
         clearSessions();
         loaderFactory.init();
     }

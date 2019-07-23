@@ -1,12 +1,13 @@
 package allgoritm.com.youla.nativead;
 
-import allgoritm.com.youla.admob.demo.BuildConfig;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import io.reactivex.Observer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -16,14 +17,16 @@ public class MapAdvertSession implements AdvertSession {
 
     private final Observer<Integer> loadRequests;
     private final int maxCacheSize;
+    private final int loadSize;
     private final List<INativeAd> nativeAdList;
     private final Map<Integer, INativeAd> firstGenerationAds;
     private final StringBuilder logStringBuilder;
     private boolean implicitLoadMore = true;
 
-    public MapAdvertSession(Observer<Integer> loadRequests, int maxCacheSize) {
+    public MapAdvertSession(Observer<Integer> loadRequests, int maxCacheSize, int loadSize) {
         this.loadRequests = loadRequests;
         this.maxCacheSize = maxCacheSize;
+        this.loadSize = loadSize;
         nativeAdList = Collections.synchronizedList(new ArrayList<>());
         firstGenerationAds = new ConcurrentHashMap<>();
         logStringBuilder = new StringBuilder();
@@ -42,14 +45,15 @@ public class MapAdvertSession implements AdvertSession {
             return firstGenerationAds.get(pos);
         }
 
-        if(nativeAdList.size() < AdvertSessionKt.ADS_MIN_CNT && implicitLoadMore){
-            loadRequests.onNext(AdvertSessionKt.ADS_MIN_CNT);
+        if(nativeAdList.size() < loadSize && implicitLoadMore){
+            loadRequests.onNext(loadSize);
             log("LOAD REQUESTS");
         }
 
         try{
             INativeAd ad = nativeAdList.remove(0);
             firstGenerationAds.put(pos, ad);
+            log("placing item");
             return ad;
         }catch (Exception e){
             return null;
@@ -85,7 +89,6 @@ public class MapAdvertSession implements AdvertSession {
     }
 
     private void removeAd(INativeAd toRemove) {
-        Log.d(TAG, "removing ad = " + toRemove);
         firstGenerationAds.values().remove(toRemove);
         nativeAdList.remove(toRemove);
         if (toRemove instanceof AdMobNativeAd) {
@@ -105,27 +108,27 @@ public class MapAdvertSession implements AdvertSession {
     }
 
     private void log(String place){
-        if (BuildConfig.DEBUG){
-            logStringBuilder.setLength(0);
-            Log.d(TAG, "-----------------" +  place + "--------------------");
-            Log.d(TAG, "loads size :" + nativeAdList.size());
-            Log.d(TAG, "first generation key size: " + firstGenerationAds.keySet().size());
-            Log.d(TAG, "first generation values size: " + firstGenerationAds.values().size());
-
-
-            Set<Integer> keySet = new TreeSet<>(firstGenerationAds.keySet());
-            for (Integer key : keySet) {
-                logStringBuilder.append(key).append(" ");
-            }
-
-            Log.d(TAG, "first generation positions: " + logStringBuilder.toString());
-
-            logStringBuilder.setLength(0);
-
-            Log.d(TAG, "second generation positions: " + logStringBuilder.toString());
-            Log.d(TAG, "loads size:" + nativeAdList.size());
-            Log.d(TAG, "-------------------------------------");
-        }
+//        if (BuildConfig.DEBUG){
+//            logStringBuilder.setLength(0);
+//            Log.d(TAG, "-----------------" +  place + "--------------------");
+//            Log.d(TAG, "loads size :" + nativeAdList.size());
+//            Log.d(TAG, "first generation key size: " + firstGenerationAds.keySet().size());
+//            Log.d(TAG, "first generation values size: " + firstGenerationAds.values().size());
+//
+//
+//            Set<Integer> keySet = new TreeSet<>(firstGenerationAds.keySet());
+//            for (Integer key : keySet) {
+//                logStringBuilder.append(key).append(" ");
+//            }
+//
+//            Log.d(TAG, "first generation positions: " + logStringBuilder.toString());
+//
+//            logStringBuilder.setLength(0);
+//
+//            Log.d(TAG, "second generation positions: " + logStringBuilder.toString());
+//            Log.d(TAG, "loads size:" + nativeAdList.size());
+//            Log.d(TAG, "-------------------------------------");
+//        }
     }
 
     @Override

@@ -20,5 +20,7 @@
 
     <string name="pref_title_use_rotation">Use lru session with rotation</string>
     <string name="pref_title_use_advert">Show ad mob advert</string>
-    <string name="pref_title_stride">Number of products between advert items</string>
+    <string name="pref_title_stride">Number of products (specify odd) between advert items, range: 3 .. 20</string>
+
+    <string name="error_stride_toast">Please, specify odd number between 3 and 20</string>
 </resources>

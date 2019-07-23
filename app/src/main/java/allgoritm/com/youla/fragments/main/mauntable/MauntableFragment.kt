@@ -1,25 +1,16 @@
 package allgoritm.com.youla.fragments.main.mauntable
 
 
-import allgoritm.com.youla.utils.rx.CompositeDisposablesMap
+import allgoritm.com.youla.utils.delegates.DisposableDelegate
+import allgoritm.com.youla.utils.delegates.DisposableDelegateImpl
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import io.reactivex.disposables.Disposable
 import java.util.concurrent.atomic.AtomicReference
 
 //cut out custom lifecycle
-abstract class MauntableFragment : Fragment() {
+abstract class MauntableFragment : Fragment(), DisposableDelegate by DisposableDelegateImpl() {
 
     private val onActivityCreatedAction = AtomicReference<() -> Unit>()
-    private val compositeDisposablesMap = CompositeDisposablesMap()
-
-    fun addDisposable(key: String, d: Disposable) {
-        compositeDisposablesMap.put(key, d)
-    }
-
-    fun clearDisposable(key: String) {
-        compositeDisposablesMap.clear(key)
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -29,7 +20,7 @@ abstract class MauntableFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        compositeDisposablesMap.clearAll()
+        clearAll()
     }
 
     fun putOnActivityCreatedAction(a: () -> Unit){

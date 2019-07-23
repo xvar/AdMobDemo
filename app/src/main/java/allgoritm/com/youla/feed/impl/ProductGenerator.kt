@@ -83,4 +83,6 @@ class ProductGenerator @Inject constructor(
             meta = YAdapterItemMeta.ProductMeta.Product(UUID.randomUUID().toString())
         )
     }
+
+    fun clear() = localIdGenerator.set(0)
 }

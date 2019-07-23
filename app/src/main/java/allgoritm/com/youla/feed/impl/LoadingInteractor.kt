@@ -3,7 +3,6 @@ package allgoritm.com.youla.feed.impl
 import allgoritm.com.youla.di.ScopeContainer
 import allgoritm.com.youla.feed.contract.DataChange
 import allgoritm.com.youla.feed.model.FeedState
-import allgoritm.com.youla.nativead.ADS_MIN_CNT
 import allgoritm.com.youla.nativead.NativeAdManager
 import allgoritm.com.youla.utils.rx.CompositeDisposablesMap
 import io.reactivex.processors.PublishProcessor
@@ -52,9 +51,9 @@ class LoadingInteractor @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .doOnSubscribe {
                     setLoading(true)
+                    nativeAdManager.loadMore(nativeAdManager.MIN_LOAD_COUNT)
                 }
                 .subscribe( {
-                    nativeAdManager.loadMore(ADS_MIN_CNT)
                     scopeContainer.loadingChanges.onNext(DataChange.Loading.Success())
                     lastWasError.set(false)
                     setLoading(false)

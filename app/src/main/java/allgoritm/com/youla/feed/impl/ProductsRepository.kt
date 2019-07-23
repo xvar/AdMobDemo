@@ -39,6 +39,7 @@ class ProductsRepository @Inject constructor(
 
     fun clear() : Completable {
         return Completable.fromAction {
+            productGenerator.clear()
             map.clear()
             sendUpdate()
         }

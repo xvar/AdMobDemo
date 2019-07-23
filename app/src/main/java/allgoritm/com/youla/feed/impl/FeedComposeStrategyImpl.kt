@@ -11,6 +11,7 @@ import allgoritm.com.youla.models.isPromotedProduct
 import allgoritm.com.youla.models.isWideItem
 import allgoritm.com.youla.nativead.AdMobNativeAd
 import allgoritm.com.youla.nativead.NativeAdManager
+import android.util.Log
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,7 +34,7 @@ class FeedComposeStrategyImpl(
         t.products?.let {
             val mutableProducts = LinkedList(it)
             val productsAndAdverts = mergeProductsWithAdverts(
-                    mutableList.size,
+                    0,
                     nativeAdManager,
                     mutableProducts
             )
@@ -55,9 +56,7 @@ class FeedComposeStrategyImpl(
 
         val result = mutableListOf<AdapterItem>()
 
-        //cut out -- fixed for demo
-        val stride = 9
-        val maxAdvertCount = 600
+        val stride = settingsProvider.getStride()
 
         var advertCount = 0
         var stridePos = 1
@@ -79,7 +78,7 @@ class FeedComposeStrategyImpl(
                     originList.addFirst(item)
                     stridePos = 1
 
-                    if (canAddAdvert(advertCount, maxAdvertCount, stride)) {
+                    if (canAddAdvert(advertCount)) {
                         //add advert
                         val advert = advertSession.getForPosition(result.size + startOffsetIndex, feedListProxy.getPositionData())
                         if (advert != null) {
@@ -99,9 +98,8 @@ class FeedComposeStrategyImpl(
         return result
     }
 
-    private fun canAddAdvert(advertCount : Int, maxAdvertCount : Int, stride: Int) : Boolean {
-        //cut out, using stub for demo
-        return true
+    private fun canAddAdvert(advertCount : Int) : Boolean {
+        return settingsProvider.shouldUseAdvert()
     }
 
     /**

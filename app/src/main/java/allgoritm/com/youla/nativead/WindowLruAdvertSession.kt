@@ -9,7 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class WindowLruAdvertSession(
         private val loadRequests: Observer<Int>,
-        override val maxCacheSize: Int
+        override val maxCacheSize: Int,
+        private val loadSize: Int
 ) : AdvertSession {
     override val cachedItemsCount: Int
         get() = nativeAdList.size
@@ -50,8 +51,8 @@ class WindowLruAdvertSession(
         if (ad != null)
             advertWindow.put(key, AdvertWrapper(ad, pos))
 
-        if (nativeAdList.size < ADS_MIN_CNT && implicitLoadMore) {
-            loadRequests.onNext(ADS_MIN_CNT)
+        if (nativeAdList.size < loadSize && implicitLoadMore) {
+            loadRequests.onNext(loadSize)
         }
 
         return ad
