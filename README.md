@@ -1,4 +1,4 @@
-# Youla-AdMobDemo
+# AdMob Demo
 Demo for the ad-mob integration
 
 Settings have following parameters:
